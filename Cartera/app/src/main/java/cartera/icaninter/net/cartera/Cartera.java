@@ -19,6 +19,7 @@ public class Cartera extends Application {
                 .applicationId("master")
                 .addNetworkInterceptor(new ParseLogInterceptor())
                 .server("http://cartera-server.herokuapp.com/parse/")
+                .enableLocalDataStore()
                 .build());
 
 

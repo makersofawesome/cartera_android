@@ -3,21 +3,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_activity"
+            android:icon="@drawable/ic_credit_card_24dp"
+            android:title="My Activity" />
+            <!--android:icon="@drawable/ic_menu_camera"-->
+
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/signout"
+            android:icon="@drawable/ic_exit_to_app_24dp"
+            android:title="Log out" />
+            <!--android:icon="@drawable/ic_menu_gallery"-->
+
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_acnt_settings"
+            android:icon="@drawable/ic_identity_24dp"
+            android:title="Account Settings" />
+            <!--android:icon="@drawable/ic_menu_slideshow"-->
+
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_app_settings"
+            android:icon="@drawable/ic_settings_applications_24dp"
+            android:title="App Settings" />
+            <!--android:icon="@drawable/ic_menu_manage"-->
+
     </group>
 
     <item android:title="Communicate">
