@@ -36,4 +36,9 @@ dependencies {
 
     //Play services for push notifications
     compile 'com.google.android.gms:play-services:8.3.0'
+
+    //Parse
+    compile 'com.parse:parse-android:1.13.0'
+    compile 'com.parse:parseinterceptors:0.0.2'
+
 }
