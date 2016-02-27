@@ -8,8 +8,13 @@
             android:title="My Activity" />
             <!--android:icon="@drawable/ic_menu_camera"-->
 
+        <item android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_24dp"
+            android:checked="true"
+            android:title="Home"/>
+
         <item
-            android:id="@+id/signout"
+            android:id="@+id/nav_signout"
             android:icon="@drawable/ic_exit_to_app_24dp"
             android:title="Log out" />
             <!--android:icon="@drawable/ic_menu_gallery"-->

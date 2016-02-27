@@ -26,7 +26,7 @@
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/card_title"
+            android:id="@+id/request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -35,7 +35,7 @@
             android:paddingLeft="4dp"
             android:paddingTop="4dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            tools:text="Personal Trainer Available!" />
+            tools:text="Samee Ahmad Khan is requesting $30" />
 
         <TextView
             android:id="@+id/time_stamp"

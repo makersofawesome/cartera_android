@@ -10,4 +10,13 @@ public class Utils {
     public static String makeLogTag(Class c){
         return "RecSports: " + c.getSimpleName();
     }
+
+    public static String formatRequestString(String name, String amount){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(name)
+                .append(" is requesting $")
+                .append(amount);
+        return stringBuilder.toString();
+    }
 }

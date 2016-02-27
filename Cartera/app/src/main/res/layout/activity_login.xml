@@ -10,9 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorPrimary"
-    tools:context="cartera.icaninter.net.cartera.LoginActivity">
-
-
+    tools:context=".main.LoginActivity">
 
     <ScrollView
         android:id="@+id/login_form"
@@ -24,7 +22,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="48dp"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+                android:text="Welcome to Cartera"/>
 
             <android.support.v7.widget.CardView
                 android:layout_width="360dp"
@@ -49,7 +53,7 @@
                             android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/prompt_email"
+                            android:hint="Username"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true" />
@@ -96,14 +100,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:style="?android:attr/borderlessButtonStyle"
+            android:layout_marginTop="32dp"
+            style="?android:attr/borderlessButtonStyle"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-            android:text="Register for Cartera"/>
+            android:text="Register for free"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                android:text="Powered by:"/>
+
+            <ImageView
+                android:id="@+id/nessie_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/nessie_logo"
+                android:layout_gravity="center"/>
+
+
 
         </LinearLayout>
-
-
 
     </ScrollView>
 
