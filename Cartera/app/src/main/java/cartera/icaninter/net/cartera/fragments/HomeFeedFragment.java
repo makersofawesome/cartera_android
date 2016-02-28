@@ -157,12 +157,10 @@ public class HomeFeedFragment extends Fragment implements android.support.v4.app
                         continue;
 
                     Request r = new Request();
-                    /*r.setRequesterName(new StringBuilder()
+                    r.setRequesterName(new StringBuilder()
                             .append(user.get("first"))
                             .append(" ")
                             .append(user.get("last")).toString());
-                    */
-                    r.setRequesterName(user.getUsername());
                     r.setLat(p.getDouble("latitude"));
                     r.setLon(p.getDouble("longitude"));
                     r.setRequestAmount(p.getInt("amount"));

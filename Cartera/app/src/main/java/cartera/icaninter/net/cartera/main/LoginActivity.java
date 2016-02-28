@@ -24,6 +24,7 @@ import com.parse.ParseUser;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cartera.icaninter.net.cartera.R;
+import cartera.icaninter.net.cartera.wizard.RegisterActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -88,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             mRegisterButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO:
+                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 }
             });
 

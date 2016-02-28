@@ -1,5 +1,8 @@
 package cartera.icaninter.net.cartera.main;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.hardware.input.InputManager;
 import android.os.Handler;
@@ -19,8 +22,15 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.reimaginebanking.api.java.NessieClient;
+import com.reimaginebanking.api.java.NessieException;
+import com.reimaginebanking.api.java.NessieResultsListener;
+import com.reimaginebanking.api.java.models.Account;
 
 import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
+import java.net.HttpURLConnection;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,11 +50,14 @@ public class ComposeActivity extends AppCompatActivity {
     @Bind(R.id.amountLayout)
     LinearLayout amountLayout;
 
+    private int maxAmount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
 
+        verifyBalance(ParseUser.getCurrentUser().get("account_id").toString());
         ButterKnife.bind(this);
 
         amountText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -56,6 +69,8 @@ public class ComposeActivity extends AppCompatActivity {
                 }
 
                 return false;
+
+
             }
         });
 
@@ -87,10 +102,25 @@ public class ComposeActivity extends AppCompatActivity {
 
         ParseUser user = ParseUser.getCurrentUser();
 
+        int amount = Integer.parseInt(amountText.getText().toString());
+        if(amount > maxAmount){
+            new AlertDialog.Builder(this)
+                    .setTitle("Insufficient balance!")
+                    .setMessage("You are too poor to make this transaction request.")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .create()
+                    .show();
+            return;
+        }
 
         ParseObject request = ParseObject.create("Request");
         request.put("requesterId", user.getObjectId());
-        request.put("amount", Integer.parseInt(amountText.getText().toString()));
+        request.put("amount", amount);
 
         SharedPreferences preferences = getSharedPreferences("Cartera", 0);
         float longg = preferences.getFloat("longitude", Integer.MIN_VALUE);
@@ -140,5 +170,21 @@ public class ComposeActivity extends AppCompatActivity {
 
     }
 
+    boolean verifyBalance(String id){
+
+        NessieClient nessieClient = NessieClient.getInstance();
+        nessieClient.setAPIKey("5948b3880cdae0efb761d44b9be7d96f");
+        nessieClient.getAccount(id,
+                new NessieResultsListener() {
+
+                    @Override
+                    public void onSuccess(Object o, NessieException e) {
+                        Account account = (Account) o;
+                        maxAmount = (int) account.getBalance();
+                    }
+                });
+
+        return true;
+    }
 
 }
