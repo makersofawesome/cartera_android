@@ -1,11 +1,15 @@
 package cartera.icaninter.net.cartera.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
 
 import org.w3c.dom.Text;
 
@@ -50,6 +54,13 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
                 request.getRequesterName(),
                 Integer.toString(request.getRequestAmount())));
 
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(request.getRequesterName().substring(0,2),
+                        ContextCompat.getColor(mContext, R.color.colorPrimary));
+
+        holder.avatar.setImageDrawable(drawable);
+
+        holder.timeText.setText(request.getDate());
 
     }
 
@@ -75,6 +86,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
         @Bind(R.id.time_stamp)
         TextView timeText;
+
+        @Bind(R.id.alpha_icon)
+        ImageView avatar;
 
         public RequestsViewHolder(View itemView) {
             super(itemView);

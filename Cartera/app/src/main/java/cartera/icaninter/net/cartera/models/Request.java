@@ -11,6 +11,8 @@ public class Request {
     private double lon;
     private double lat;
 
+    private int seconds;
+    private String date;
 
     public String getRequesterName() {
         return requesterName;
@@ -42,5 +44,21 @@ public class Request {
 
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

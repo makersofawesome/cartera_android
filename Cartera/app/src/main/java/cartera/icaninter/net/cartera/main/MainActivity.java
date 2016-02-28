@@ -1,6 +1,7 @@
 package cartera.icaninter.net.cartera.main;
 
 import android.Manifest;
+import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,14 +27,21 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.LogOutCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cartera.icaninter.net.cartera.fragments.ActivityFragment;
 import cartera.icaninter.net.cartera.fragments.HomeFeedFragment;
 import cartera.icaninter.net.cartera.R;
+import cartera.icaninter.net.cartera.models.Request;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -89,21 +99,23 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
+    private Location mLocation;
 
     @Override
     protected void onStart() {
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
 
         try{
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(location != null){
+            mLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(mLocation != null){
                 SharedPreferences prefs = getSharedPreferences("Cartera", 0);
                 prefs.edit()
-                        .putFloat("longitude", (float)location.getLongitude())
-                        .putFloat("latitude", (float)location.getLatitude())
+                        .putFloat("longitude", (float)mLocation.getLongitude())
+                        .putFloat("latitude", (float)mLocation.getLatitude())
                         .apply();
             }
+
+
         }catch (SecurityException e){
             Log.d("LOC", "Permission not granted");
         }
@@ -166,6 +178,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 }
