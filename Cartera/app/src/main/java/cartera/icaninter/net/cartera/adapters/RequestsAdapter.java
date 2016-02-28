@@ -1,6 +1,7 @@
 package cartera.icaninter.net.cartera.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cartera.icaninter.net.cartera.R;
+import cartera.icaninter.net.cartera.TransactionActivity;
 import cartera.icaninter.net.cartera.Utils;
 import cartera.icaninter.net.cartera.models.Request;
 
@@ -98,6 +100,15 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Request r = mRequests.get(getAdapterPosition());
+                    Intent intent = new Intent(mContext, TransactionActivity.class);
+                    intent.putExtra(TransactionActivity.EXTRA_AMOUNT, r.getRequestAmount());
+                    intent.putExtra(TransactionActivity.EXTRA_NAME, r.getRequesterName());
+                    intent.putExtra(TransactionActivity.EXTRA_LAT, r.getLat());
+                    intent.putExtra(TransactionActivity.EXTRA_LONG, r.getLon());
+                    intent.putExtra(TransactionActivity.EXTRA_REQUESTER, r.getUserId());
+                    intent.putExtra(TransactionActivity.EXTRA_REQUEST, r.getRequestId());
+                    mContext.startActivity(intent);
 
                 }
             });

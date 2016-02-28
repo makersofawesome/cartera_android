@@ -14,6 +14,9 @@ public class Request {
     private int seconds;
     private String date;
 
+    String userId;
+    String requestId;
+
     public String getRequesterName() {
         return requesterName;
     }
@@ -60,5 +63,22 @@ public class Request {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 }

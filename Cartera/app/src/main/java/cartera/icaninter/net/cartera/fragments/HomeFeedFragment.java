@@ -164,6 +164,8 @@ public class HomeFeedFragment extends Fragment implements android.support.v4.app
                     r.setLat(p.getDouble("latitude"));
                     r.setLon(p.getDouble("longitude"));
                     r.setRequestAmount(p.getInt("amount"));
+                    r.setUserId(user.getObjectId());
+                    r.setRequestId(p.getObjectId());
                     try {
                         r.setDate(Utils.formatDate(p.get("_updated_at").toString()));
                     }catch (Exception e){
