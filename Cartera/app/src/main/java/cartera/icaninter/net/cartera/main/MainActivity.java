@@ -1,9 +1,17 @@
 package cartera.icaninter.net.cartera.main;
 
-import android.app.FragmentManager;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,21 +22,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cartera.icaninter.net.cartera.ActivityFragment;
+import cartera.icaninter.net.cartera.fragments.ActivityFragment;
 import cartera.icaninter.net.cartera.fragments.HomeFeedFragment;
 import cartera.icaninter.net.cartera.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-//    @Bind(R.id.customer_name)
-//    TextView nameText;
 
     @Bind(R.id.nav_view)
     NavigationView navigationView;
@@ -72,15 +78,36 @@ public class MainActivity extends AppCompatActivity
         mUser = ParseUser.getCurrentUser();
         TextView nameText =
                 (TextView) navigationView.
-                getHeaderView(0).
-                findViewById(R.id.customer_name);
+                        getHeaderView(0).
+                        findViewById(R.id.customer_name);
+
         nameText.setText(mUser.getUsername());
-
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, new HomeFeedFragment())
                 .commit();
+
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+
+        try{
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location != null){
+                SharedPreferences prefs = getSharedPreferences("Cartera", 0);
+                prefs.edit()
+                        .putFloat("longitude", (float)location.getLongitude())
+                        .putFloat("latitude", (float)location.getLatitude())
+                        .apply();
+            }
+        }catch (SecurityException e){
+            Log.d("LOC", "Permission not granted");
+        }
+        super.onStart();
     }
 
     @Override
@@ -93,13 +120,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
 
             case R.id.nav_home:
                 getSupportFragmentManager()
@@ -138,4 +166,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
